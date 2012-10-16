@@ -1,6 +1,6 @@
+var last_keys = [];
 jQuery(function($){
-  last_keys = [];
-  $(document)
+  $(window)
     .keypress(getAscii)
     .keyup(getKeyCode);
 });
@@ -20,19 +20,19 @@ function getKeyCode(e){
   e.stopPropagation();
 
   code = e.which.toString();
+  console.log(code);
+  console.log( window.last_keys);
   if(e.shiftKey){
-    last_keys.push(code);
+    window.last_keys.push(code);
   }
-  else{
-    last_keys = [];
-  }
-  if(last_keys.length == 3){
-    last_keys.shift();
-  }
+  if ((window.last_keys[0] >= 65 && window.last_keys[0] <= 90) && code == 16 ) {
+    window.last_keys = [];
+    return;
+  };
   $("#keycode-container").html(code);
-  keys = {16: "Shift",9: "Tab", 13: "Enter", 8: "Backspace", }
+  keys = {16: "Shift",9: "Tab", 13: "Enter", 8: "Backspace" };
   $("#keycode-container").html(code);
-  if(keys.hasOwnProperty(code) && last_keys[0] != 16){
+  if(keys.hasOwnProperty(code) && window.last_keys[0] != 16){
     $("#character-container").html(keys[code]);
     $("#ascii-container").html("");
   }
