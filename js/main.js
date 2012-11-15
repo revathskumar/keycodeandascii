@@ -20,8 +20,6 @@ function getKeyCode(e){
   e.stopPropagation();
 
   code = e.which.toString();
-  console.log(code);
-  console.log( window.last_keys);
   if(e.shiftKey){
     window.last_keys.push(code);
   }
